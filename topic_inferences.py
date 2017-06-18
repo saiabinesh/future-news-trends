@@ -106,7 +106,7 @@ def inferTopics(test_corpus):
         bag_of_words_json_doc = test_dictionary.doc2bow(tokenized_json_doc)
         #print(bag_of_words_json_doc)
         inferred_lda_vector= lda[bag_of_words_json_doc]
-        #print(lda_vector)
+        #print(inferred_lda_vector)
         # print ("")
         # a= max([l[1] for l in inferred_lda_vector])
         # for i in inferred_lda_vector:
