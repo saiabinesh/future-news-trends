@@ -45,41 +45,47 @@ numpy_array_topic_frequencies = np.zeros(shape=(9,300))
 # print([x for x in topic_frequency_dicts if x["Topic_no"]== 2])
 # print(numpy_array_topic_frequencies[:,2])
 
-# for topic_1 in range(0,300):
-    # for topic_2 in range(0,300):
-        # if topic_1 != topic_2:
-            # statsmodels.tsa.stattools.grangercausalitytests(numpy_array_topic_frequencies[,[0,5]], 5, addconst=True, verbose=False)
-
 #pickle.dump(numpy_array_topic_frequencies, open("numpy_array_topic_frequencies_1.pck","wb"))
 numpy_array_topic_frequencies = pickle.load(open("numpy_array_topic_frequencies_1.pck","rb"))
 # print(numpy_array_topic_frequencies[:,])
 numpy_array_topic_frequencies_test = numpy_array_topic_frequencies
 
-for i in range(0,9):
-    if i==0:
-        numpy_array_topic_frequencies_test[0,1]=0
-    else:
-        numpy_array_topic_frequencies_test[i,1]=numpy_array_topic_frequencies[i-1,0]
+
+causality_pairs = {}
+for topic_1 in range(0,300):
+    for topic_2 in range(0,300):
+        if topic_1 != topic_2:
+            lr_test_result = statsmodels.tsa.stattools.grangercausalitytests(numpy_array_topic_frequencies[:,[topic_2,topic_1]], 1, addconst=True, verbose=False)[1][0]['lrtest']
+            causality_pairs['topic_'+str(topic_1)+'causing topic_'+str(topic_2)]= lr_test_result[1]
+            
+
+pickle.dump(causality_pairs, open("causality_pairs_p_values.pck","wb"))
+
+# for i in range(0,9):
+    # if i==0:
+        # numpy_array_topic_frequencies_test[0,1]=0
+    # else:
+        # numpy_array_topic_frequencies_test[i,1]=numpy_array_topic_frequencies[i-1,0]
         
 
 
-print(numpy_array_topic_frequencies_test[:,0])
-print(numpy_array_topic_frequencies_test[:,1])
+# # print(numpy_array_topic_frequencies_test[:,0])
+# # print(numpy_array_topic_frequencies_test[:,1])
 
-a = statsmodels.tsa.stattools.grangercausalitytests(numpy_array_topic_frequencies_test[:,[1,0]], 1, addconst=True, verbose=True)
+# a = statsmodels.tsa.stattools.grangercausalitytests(numpy_array_topic_frequencies_test[:,[1,0]], 1, addconst=True, verbose=True)
 
-# print(type(a)) dict
-# print(type(a[1])) tuple
-# print(type(a[1][0])) dict
+# # print(type(a)) dict
+# # print(type(a[1])) tuple
+# # print(type(a[1][0])) dict
 
-print(a[1][0]['lrtest'])
+# print(a[1][0]['lrtest'])
 
-# print(a.values())
-# print(a.keys())
-#print(a['lrtest'])
-# print(a['1'])
-# print(a['1']['lrtest'])
+# # print(a.values())
+# # print(a.keys())
+# #print(a['lrtest'])
+# # print(a['1'])
+# # print(a['1']['lrtest'])
 
-# for i in a.items():
-    # print(i)
-    # print ("")
+# # for i in a.items():
+    # # print(i)
+    # # print ("")
