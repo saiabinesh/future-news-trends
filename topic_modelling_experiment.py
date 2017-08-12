@@ -7,7 +7,7 @@ sys.stdout = f
 
 from datetime import datetime, timedelta
 print("\nExperiment time: ",datetime.now())
-print("Objective: Get topic model for just 50 documents in the corpus. Looking at the top 10 words in each topic. For different values of eta")
+print("Objective: Getting topic models with low values for both alpha and eta. Looking at the top 20 words in the first 10 topics. For different values of eta")
 # increase the eta parameter and check the results.\nStep 1 is to get the corpora.\nPrinting full word distribution now.")
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     #build topic models
     words = [*map(filterWords,results)]
     print ("pre-processed")
-    eta_list = [0.01,0.001,0.1,0,2,0.3,0.4,0.5,0.75,1,2,5,10,100]
+    eta_list = [0.01,0.001,0.1,0,1,2,5,10,100]
     for eta in eta_list:
             createTopics(words,eta = eta)
     print ("done")

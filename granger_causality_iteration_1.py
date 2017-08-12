@@ -13,7 +13,7 @@ from nltk.corpus import stopwords
 from nltk import word_tokenize
 from gensim import corpora, models
 import random
-random.seed(1000)
+
 
 global location
 global startDate
@@ -166,10 +166,12 @@ if __name__ == "__main__":
         print ("File %s does not exist" % (location))
         exit()
     
+    assumed_earliest_date = datetime(2015, 9, 1, 0, 0)
+    random.seed(1000)
     offsets = list(range(11))
     random.shuffle(offsets)
     offsets =offsets[0:9]
-    print(offsets)
+    # print(offsets)
     f1st_sep = assumed_earliest_date #fst_sep is the first of september 2015
     
     global startdate

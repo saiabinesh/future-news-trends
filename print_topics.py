@@ -18,7 +18,7 @@ sys.stdout = Logger()
 
 from datetime import datetime, timedelta
 print("\nExperiment time: ",datetime.now())
-print("Looking at the words in model0")
+print("Looking at the words in model0 with a low eta of 1e-06")
 
 import json, codecs, sqlite3
 import os.path, string
@@ -41,16 +41,18 @@ global splits
 global i
 global topic_frequency_dicts
 
-model0_words = pickle.load(open("model0_topic_words_top10.pck","rb"))
-print(model0_words) 
+# Insert the saved model here to print out the 
+# model0_words = pickle.load(open("model0_notopics_300_eta_1e-06.lda","rb"))
+# print(model0_words) 
 
-# print("Loading topic model",datetime.now())
-# lda = models.LdaModel.load("model0.lda")  
-# print("Topic model loaded",datetime.now())
-# model0_topic_words = {}
-# print("Showing topic")
-# lda.show_topic(0, topn=10)
-# print("Get topic term")
+print("Loading topic model",datetime.now())
+lda = models.LdaModel.load("model0_notopics_300_eta_1e-06.lda")  
+print("Topic model loaded",datetime.now())
+model0_topic_words = {}
+print("Showing topic 0 ")
+i=0
+top100_words = lda.show_topic(i, topn=20)
+print(top100_words)
 # lda.get_topic_terms(0, topn=10)
 
 # for i in range(0,300): 
